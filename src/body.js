@@ -3,15 +3,14 @@ import testDisplay from '../db/index';
 
 export default class Body extends React.Component {
   render() {
-    console.log(Array.isArray(testDisplay));
+    console.log(testDisplay);
     return (
-      <div>
-        <h1>{testDisplay[0]}</h1>
-        {/* <ul>
-          {testDisplay.map((word, i) => (
-            <li key={i}>{word}</li>
+      <div className="container-flush">
+        <ul>
+          {testDisplay.map((x) => (
+            <li>{x}</li>
           ))}
-        </ul> */}
+        </ul>
       </div>
     );
   }
