@@ -2329,14 +2329,31 @@ const wordList = () => {
 
 const parsedList = wordList().slice(1);
 
-// for (let i = 0; i < parsedList.length; i++) {
-//   if (parsedList[i].trim().length !== 5) {
-//     console.log([i, parsedList[i]]);
-//   }
-// }
 parsedList.splice(561, 1);
 
 //exports an array of allcaps strings
 module.exports = parsedList;
 
-console.log(parsedList);
+// console.log(parsedList);
+
+const buildCubes = (list) => {
+  const letterMatches = [];
+  for (let i = 0; i < list.length; i++) {
+    const word = list[i];
+    for (let j = 0; j < word.length; j++) {
+      const letter = word[j];
+      for (let k = 0; k < list.length; k++) {
+        if (list[k][j] === word[j]) {
+          letterMatches.push(list[k]);
+        }
+      }
+    }
+  }
+  return letterMatches;
+};
+
+// console.log(buildCubes(parsedList));
+
+const testDisplay = buildCubes(parsedList);
+
+export default testDisplay;

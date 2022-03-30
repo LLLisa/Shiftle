@@ -4,7 +4,10 @@
   "description": "5 words vert, 5 words horiz, middle square revealed by default (can toggle for extra challenge) words \"rotate\" vert and horiz to get to disred word block when a 5 letter word that is in the puzzle is made, highlighted?",
   "main": "squares.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "build:dev": "npm run build -- --watch --mode=development",
+    "start": "node server",
+    "start:dev": "nodemon server & npm run build:dev"
   },
   "repository": {
     "type": "git",
@@ -19,5 +22,15 @@
   "homepage": "https://github.com/LLLisa/Shiftle#readme",
   "dependencies": {
     "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.4",
+    "nodemon": "^2.0.15",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
   }
 }
