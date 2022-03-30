@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 const rawList = `Jun 19 2021 Day 0 CIGAR
 Jun 20 2021 Day 1 REBUT
 Jun 21 2021 Day 2 SISSY
@@ -2332,7 +2330,7 @@ const parsedList = wordList().slice(1);
 parsedList.splice(561, 1);
 
 //exports an array of allcaps strings
-module.exports = parsedList;
+// module.exports = parsedList;
 
 // console.log(parsedList);
 
