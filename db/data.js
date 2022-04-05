@@ -2317,4 +2317,13 @@ const mainList = [
   'ZONAL',
 ];
 
-export default mainList;
+const listObj = () => {
+  return mainList.reduce((a, b, i) => {
+    a[i] = b;
+    return a;
+  }, {});
+};
+
+const wordSet = new Set(mainList);
+
+export { mainList, listObj, wordSet };
