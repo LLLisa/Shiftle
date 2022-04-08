@@ -8,6 +8,12 @@ class TrieNode {
     this.children = {};
   }
 
+  trieFill(data) {
+    for (let i = 0; i < data.length; i++) {
+      this.insert(data[i]);
+    }
+  }
+
   insert(word) {
     let node = this;
     for (let i = 0; i < word.length; i++) {
@@ -23,9 +29,12 @@ class TrieNode {
   }
 
   deleteNode(node) {
-    const parentNode = node.parent;
-    delete parentNode.children[node.value];
-    if (!Object.keys(parentNode.children).length) this.deleteNode(parentNode);
+    if (!node) return;
+    if (node.parent) {
+      const parentNode = node.parent;
+      delete parentNode.children[node.value];
+      if (!Object.keys(parentNode.children).length) this.deleteNode(parentNode);
+    }
   }
 
   containsPrefix(prefix) {
@@ -52,30 +61,42 @@ class TrieNode {
     return result;
   }
 
-  report5(temp = '', result = []) {
+  reportAndScrub(temp = '', result = []) {
+    // console.log(this);
     if (this.value) temp += this.value;
-    if (this.endOfWord) result.push(temp);
-    if (result.length === 5) return result;
-    else {
+    if (this.endOfWord) {
+      result.push(temp);
+      this.deleteNode(this);
+    } else {
       for (const key in this.children) {
-        this.children[key].report5(temp, result);
+        this.children[key].reportAndScrub(temp, result);
       }
     }
     return result;
   }
-}
 
-const trieFill = (trie, data) => {
-  for (let i = 0; i < data.length; i++) {
-    trie.insert(data[i]);
+  //get first 4 words, then get all iterations for the last word, deleting as you go
+  //each fifth word iteration pushes a new 5-word block
+  //then change 4th word and repeat
+  blocks(node = this, temp = '', result = []) {
+    if (!node) return;
+    if (node.value) temp += node.value;
+    if (node.endOfWord) {
+      result.push(temp);
+      this.deleteNode(node);
+    }
+    for (let key in node.children) {
+      console.log(node.children[key].report());
+    }
   }
-};
+}
 
 const trie = new TrieNode();
 
-trieFill(trie, mainList);
-console.log(trie.report());
-trie.deleteNode(trie.children['A'].children['B']);
-console.log(trie.report());
+trie.trieFill(mainList);
+console.log(trie.blocks());
+
+// trie.deleteNode(trie.children['A'].children['B'].children['A']);
+// console.log(trie.report());
 
 export default trie;
