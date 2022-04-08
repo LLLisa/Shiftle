@@ -62,7 +62,6 @@ class TrieNode {
   }
 
   reportAndScrub(temp = '', result = []) {
-    // console.log(this);
     if (this.value) temp += this.value;
     if (this.endOfWord) {
       result.push(temp);
@@ -74,14 +73,54 @@ class TrieNode {
     }
     return result;
   }
+  /*
+  start with first word down
+  pair it with next word down
+  find `${firstWord[0]}${secondWord[0]} in trie
+  if not found, baleet second word
+  if found, , move to [1], [2], etc
+  if all found, add 3rd word down and repeat
+  */
+
+  report1(word = '') {
+    if (this.value) word += this.value;
+    if (this.endOfWord) {
+      this.deleteNode(this);
+      return word;
+    }
+    const next = this.children[Object.keys(this.children)[0]];
+    if (!next) return;
+    return next.report1(word);
+  }
 }
 
 const trie = new TrieNode();
-
 trie.trieFill(mainList);
-console.log(trie.blocks());
 
-// trie.deleteNode(trie.children['A'].children['B'].children['A']);
+const compareAll = () => {
+  const word1 = trie.report1();
+  const word2 = trie.report1();
+};
+
+const compare5 = (wordArray) => {
+  for (let i = 0; i < 5; i++) {
+    if (
+      !trie.containsPrefix(
+        `${wordArray
+          .map((word) => {
+            return word[i];
+          })
+          .join('')}`
+      )
+    ) {
+      return false;
+    }
+  }
+  return true;
+};
+
+console.log(compare5(['ABATE', 'TONAL']));
+
 // console.log(trie.report());
 
 export default trie;
