@@ -74,21 +74,6 @@ class TrieNode {
     }
     return result;
   }
-
-  //get first 4 words, then get all iterations for the last word, deleting as you go
-  //each fifth word iteration pushes a new 5-word block
-  //then change 4th word and repeat
-  blocks(node = this, temp = '', result = []) {
-    if (!node) return;
-    if (node.value) temp += node.value;
-    if (node.endOfWord) {
-      result.push(temp);
-      this.deleteNode(node);
-    }
-    for (let key in node.children) {
-      console.log(node.children[key].report());
-    }
-  }
 }
 
 const trie = new TrieNode();
